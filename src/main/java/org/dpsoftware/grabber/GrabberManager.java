@@ -70,7 +70,7 @@ public class GrabberManager {
         AtomicInteger pipelineRetry = new AtomicInteger();
         String linuxParams = null;
         if (NativeExecutor.isLinux()) {
-            linuxParams = PipelineManager.getLinuxPipelineParams(MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name()));
+            linuxParams = PipelineManager.getLinuxPipelineParams();
         }
         String finalLinuxParams = linuxParams;
         Gst.getExecutor().scheduleAtFixedRate(() -> {

@@ -528,6 +528,8 @@ public class SettingsController {
                 config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC.name());
             } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.XIMAGESRC_NVIDIA) {
                 config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name());
+            } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE) {
+                config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE.name());
             }
         }
     }
