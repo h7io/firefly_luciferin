@@ -324,6 +324,7 @@ public class FireflyLuciferin extends Application implements SerialPortEventList
         // Desktop Duplication API producers
         if ((config.getCaptureMethod().equals(Configuration.CaptureMethod.DDUPL.name()))
                 || (config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name()))
+                || (config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name()))
                 || (config.getCaptureMethod().equals(Configuration.CaptureMethod.AVFVIDEOSRC.name()))) {
             grabberManager.launchAdvancedGrabber(imageProcessor);
         } else { // Standard Producers

@@ -69,12 +69,12 @@ public class PipelineManager {
      *
      * @return params for Linux Pipeline
      */
-    public static String getLinuxPipelineParams() {
+    public static String getLinuxPipelineParams(boolean isNvidia) {
         // startx{0}, endx{1}, starty{2}, endy{3}
         DisplayManager displayManager = new DisplayManager();
         List<DisplayInfo> displayList = displayManager.getDisplayList();
         DisplayInfo monitorInfo = displayList.get(FireflyLuciferin.config.getMonitorNumber());
-        String gstreamerPipeline = Constants.GSTREAMER_PIPELINE_LINUX
+        String gstreamerPipeline = (isNvidia ? Constants.GSTREAMER_PIPELINE_LINUX_NVIDIA : Constants.GSTREAMER_PIPELINE_LINUX)
                 .replace("{0}", String.valueOf((int) (monitorInfo.getMinX() + 1)))
                 .replace("{1}", String.valueOf((int) (monitorInfo.getMinX() + monitorInfo.getWidth() - 1)))
                 .replace("{2}", String.valueOf((int) (monitorInfo.getMinY())))
@@ -310,6 +310,7 @@ public class PipelineManager {
         }
         if (GrabberManager.pipe != null && ((FireflyLuciferin.config.getCaptureMethod().equals(Configuration.CaptureMethod.DDUPL.name()))
                 || (FireflyLuciferin.config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name()))
+                || (FireflyLuciferin.config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name()))
                 || (FireflyLuciferin.config.getCaptureMethod().equals(Configuration.CaptureMethod.AVFVIDEOSRC.name())))) {
             GrabberManager.pipe.stop();
         }
