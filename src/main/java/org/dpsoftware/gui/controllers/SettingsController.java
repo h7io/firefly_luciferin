@@ -528,6 +528,8 @@ public class SettingsController {
                 config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC.name());
             } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.PIPEWIREXDG) {
                 config.setCaptureMethod(Configuration.CaptureMethod.PIPEWIREXDG.name());
+            } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.FILE) {
+                config.setCaptureMethod(Configuration.CaptureMethod.FILE.name());
             }
         }
     }
@@ -756,7 +758,7 @@ public class SettingsController {
                 } else if (NativeExecutor.isMac()) {
                     modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.AVFVIDEOSRC);
                 } else {
-                    modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC, Configuration.CaptureMethod.PIPEWIREXDG);
+                    modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC, Configuration.CaptureMethod.PIPEWIREXDG, Configuration.CaptureMethod.FILE);
                 }
             }
             if (NativeExecutor.isWindows()) {

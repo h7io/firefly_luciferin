@@ -301,7 +301,8 @@ public class MiscTabController {
         }
         frameInsertion.setDisable((!currentConfig.getCaptureMethod().equals(Configuration.CaptureMethod.DDUPL.name()))
                 && (!currentConfig.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name()))
-                && (!currentConfig.getCaptureMethod().equals(Configuration.CaptureMethod.PIPEWIREXDG.name())
+                && (!currentConfig.getCaptureMethod().equals(Configuration.CaptureMethod.PIPEWIREXDG.name()))
+                && (!currentConfig.getCaptureMethod().equals(Configuration.CaptureMethod.FILE.name())
                 && (!currentConfig.getCaptureMethod().equals(Configuration.CaptureMethod.AVFVIDEOSRC.name()))));
         gamma.setValue(String.valueOf(MainSingleton.getInstance().config.getGamma()));
         colorMode.setValue(Enums.ColorMode.values()[MainSingleton.getInstance().config.getColorMode() - 1].getI18n());

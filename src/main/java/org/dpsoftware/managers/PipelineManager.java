@@ -53,6 +53,10 @@ import org.freedesktop.dbus.types.UInt32;
 import org.freedesktop.dbus.types.Variant;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -129,15 +133,32 @@ public class PipelineManager {
         }).get();
     }
 
+    private static String getPipelineTemplate() {
+        return switch (Configuration.CaptureMethod.valueOf(MainSingleton.getInstance().config.getCaptureMethod())) {
+            case Configuration.CaptureMethod.FILE -> {
+                String path = System.getProperty(Constants.HOME_PATH) + File.separator + Constants.DOCUMENTS_FOLDER;
+                path += File.separator + Constants.LUCIFERIN_FOLDER;
+                try {
+                    yield Files.readString(Path.of(path + "/luci_pipeline"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case Configuration.CaptureMethod.PIPEWIREXDG -> Constants.GSTREAMER_PIPELINE_PIPEWIREXDG;
+            case Configuration.CaptureMethod.XIMAGESRC -> Constants.GSTREAMER_PIPELINE_LINUX;
+            default -> throw new IllegalStateException("Unexpected value: " + Configuration.CaptureMethod.valueOf(MainSingleton.getInstance().config.getCaptureMethod()));
+        };
+    }
+
     /**
      * Calculate correct Pipeline for Linux
      *
      * @return params for Linux Pipeline
      */
     public static String getLinuxPipelineParams() {
-        String gstreamerPipeline;
+        String gstreamerPipeline = getPipelineTemplate();
 
-        if (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.PIPEWIREXDG.name())) {
+        if (gstreamerPipeline.contains("pipewiresrc")) {
             XdgStreamDetails xdgStreamDetails = getXdgStreamDetails();
 
             gstreamerPipeline = Constants.GSTREAMER_PIPELINE_PIPEWIREXDG
@@ -149,7 +170,11 @@ public class PipelineManager {
             List<DisplayInfo> displayList = displayManager.getDisplayList();
             DisplayInfo monitorInfo = displayList.get(MainSingleton.getInstance().config.getMonitorNumber());
 
-            gstreamerPipeline = Constants.GSTREAMER_PIPELINE_LINUX
+            String template;
+
+            template = Constants.GSTREAMER_PIPELINE_LINUX;
+
+            gstreamerPipeline = template
                     .replace("{0}", String.valueOf((int) (monitorInfo.getMinX() + 1)))
                     .replace("{1}", String.valueOf((int) (monitorInfo.getMinX() + monitorInfo.getWidth() - 1)))
                     .replace("{2}", String.valueOf((int) (monitorInfo.getMinY())))
@@ -416,6 +441,7 @@ public class PipelineManager {
         if (GrabberSingleton.getInstance().pipe != null && ((MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.DDUPL.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.PIPEWIREXDG.name()))
+                || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.FILE.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.AVFVIDEOSRC.name())))) {
             GrabberSingleton.getInstance().pipe.stop();
         }

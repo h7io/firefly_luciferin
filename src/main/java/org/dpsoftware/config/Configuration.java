@@ -190,6 +190,7 @@ public class Configuration implements Cloneable {
         DDUPL,
         XIMAGESRC,
         PIPEWIREXDG,
+        FILE,
         AVFVIDEOSRC
     }
 
