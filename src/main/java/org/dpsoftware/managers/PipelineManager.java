@@ -63,12 +63,12 @@ public class PipelineManager {
      *
      * @return params for Linux Pipeline
      */
-    public static String getLinuxPipelineParams() {
+    public static String getLinuxPipelineParams(boolean isNvidia) {
         // startx{0}, endx{1}, starty{2}, endy{3}
         DisplayManager displayManager = new DisplayManager();
         List<DisplayInfo> displayList = displayManager.getDisplayList();
         DisplayInfo monitorInfo = displayList.get(MainSingleton.getInstance().config.getMonitorNumber());
-        String gstreamerPipeline = Constants.GSTREAMER_PIPELINE_LINUX
+        String gstreamerPipeline = (isNvidia ? Constants.GSTREAMER_PIPELINE_LINUX_NVIDIA : Constants.GSTREAMER_PIPELINE_LINUX)
                 .replace("{0}", String.valueOf((int) (monitorInfo.getMinX() + 1)))
                 .replace("{1}", String.valueOf((int) (monitorInfo.getMinX() + monitorInfo.getWidth() - 1)))
                 .replace("{2}", String.valueOf((int) (monitorInfo.getMinY())))
@@ -332,6 +332,7 @@ public class PipelineManager {
         }
         if (GrabberSingleton.getInstance().pipe != null && ((MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.DDUPL.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name()))
+                || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.AVFVIDEOSRC.name())))) {
             GrabberSingleton.getInstance().pipe.stop();
         }

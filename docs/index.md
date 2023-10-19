@@ -19,11 +19,12 @@
 
 ### In this release:
 
-- Hotfix release: Fixed a regression that doesn't permit to drive LEDs via USB when MQTT is enabled. **This issue
-  affects Firefly Luciferin only, there is no need to update the firmware.**
+- Added NVIDIA-specific capture mode for Linux X11.
 
 ### In the previous release:
 
+- Hotfix release: Fixed a regression that doesn't permit to drive LEDs via USB when MQTT is enabled. **This issue
+  affects Firefly Luciferin only, there is no need to update the firmware.**
 - ***Breaking changes***: requires `Glow Worm Luciferin` (v5.11.8)
 - **Added support for ESP32-C3, ESP32-S2, ESP32-S3.**
   Lolin ESP32-C3, Lolin ESP32-S2 and Lolin ESP32-S3 are now fully compatible with the existing Luciferin Official PCB.

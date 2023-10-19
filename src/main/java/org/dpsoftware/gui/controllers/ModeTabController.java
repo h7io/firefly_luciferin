@@ -94,7 +94,7 @@ public class ModeTabController {
     @FXML
     protected void initialize() {
         if (NativeExecutor.isLinux()) {
-            captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC);
+            captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC, Configuration.CaptureMethod.XIMAGESRC_NVIDIA);
         }
         for (Enums.Algo al : Enums.Algo.values()) {
             algo.getItems().add(al.getI18n());
