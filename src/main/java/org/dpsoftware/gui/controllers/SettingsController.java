@@ -757,6 +757,8 @@ public class SettingsController {
                     modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.DDUPL, Configuration.CaptureMethod.WinAPI, Configuration.CaptureMethod.CPU);
                 } else if (NativeExecutor.isMac()) {
                     modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.AVFVIDEOSRC);
+                } else {
+                    modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC, Configuration.CaptureMethod.XIMAGESRC_NVIDIA, Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE);
                 }
             }
             if (NativeExecutor.isWindows()) {
