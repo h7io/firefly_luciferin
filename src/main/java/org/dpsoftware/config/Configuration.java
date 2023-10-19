@@ -190,7 +190,7 @@ public class Configuration implements Cloneable {
         DDUPL,
         XIMAGESRC,
         XIMAGESRC_NVIDIA,
-        XIMAGESRC_NVIDIA_SCALE,
+        XIMAGESRC_NVIDIA_FILE,
         AVFVIDEOSRC
     }
 

@@ -528,8 +528,8 @@ public class SettingsController {
                 config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC.name());
             } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.XIMAGESRC_NVIDIA) {
                 config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name());
-            } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE) {
-                config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE.name());
+            } else if (modeTabController.captureMethod.getValue() == Configuration.CaptureMethod.XIMAGESRC_NVIDIA_FILE) {
+                config.setCaptureMethod(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_FILE.name());
             }
         }
     }
@@ -758,7 +758,7 @@ public class SettingsController {
                 } else if (NativeExecutor.isMac()) {
                     modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.AVFVIDEOSRC);
                 } else {
-                    modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC, Configuration.CaptureMethod.XIMAGESRC_NVIDIA, Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE);
+                    modeTabController.captureMethod.getItems().addAll(Configuration.CaptureMethod.XIMAGESRC, Configuration.CaptureMethod.XIMAGESRC_NVIDIA, Configuration.CaptureMethod.XIMAGESRC_NVIDIA_FILE);
                 }
             }
             if (NativeExecutor.isWindows()) {

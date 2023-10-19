@@ -42,6 +42,9 @@ import org.dpsoftware.network.NetworkSingleton;
 import org.dpsoftware.utilities.CommonUtility;
 
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -72,8 +75,12 @@ public class PipelineManager {
 
         if (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name())) {
             pipeline = Constants.GSTREAMER_PIPELINE_LINUX_NVIDIA;
-        } else if (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE.name())) {
-            pipeline = Constants.GSTREAMER_PIPELINE_LINUX_NVIDIA_SCALE;
+        } else if (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_FILE.name())) {
+            try {
+                pipeline = Files.readString(Path.of("/tmp/luci_pipeline"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else if (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name())) {
             pipeline = Constants.GSTREAMER_PIPELINE_LINUX;
         }
@@ -342,7 +349,7 @@ public class PipelineManager {
         if (GrabberSingleton.getInstance().pipe != null && ((MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.DDUPL.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA.name()))
-                || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_SCALE.name()))
+                || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.XIMAGESRC_NVIDIA_FILE.name()))
                 || (MainSingleton.getInstance().config.getCaptureMethod().equals(Configuration.CaptureMethod.AVFVIDEOSRC.name())))) {
             GrabberSingleton.getInstance().pipe.stop();
         }
