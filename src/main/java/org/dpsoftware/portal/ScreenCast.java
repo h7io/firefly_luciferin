@@ -2,6 +2,7 @@ package org.dpsoftware.portal;
 
 import org.freedesktop.dbus.DBusPath;
 import org.freedesktop.dbus.FileDescriptor;
+import org.freedesktop.dbus.annotations.DBusInterfaceName;
 import org.freedesktop.dbus.annotations.DBusProperty;
 import org.freedesktop.dbus.annotations.DBusProperty.Access;
 import org.freedesktop.dbus.interfaces.DBusInterface;
@@ -16,6 +17,7 @@ import java.util.Map;
 @DBusProperty(name = "AvailableSourceTypes", type = UInt32.class, access = Access.READ)
 @DBusProperty(name = "AvailableCursorModes", type = UInt32.class, access = Access.READ)
 @DBusProperty(name = "version", type = UInt32.class, access = Access.READ)
+@DBusInterfaceName(value = "org.freedesktop.portal.ScreenCast")
 public interface ScreenCast extends DBusInterface {
 
 
